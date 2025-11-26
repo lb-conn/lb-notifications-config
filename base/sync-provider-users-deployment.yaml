@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sync-provider-users
+  labels:
+    app.kubernetes.io/name: sync-provider-users
+    app.kubernetes.io/component: worker
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sync-provider-users
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sync-provider-users
+        app.kubernetes.io/component: worker
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: sync-provider-users
+          image: ghcr.io/lb-conn/lb-notifications/sync-provider-users:latest
+          imagePullPolicy: Always
+          args:
+            - worker
+          envFrom:
+            - secretRef:
+                name: lb-notifications-shared-secret
+            - configMapRef:
+                name: shared-config
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+

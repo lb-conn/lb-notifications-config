@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shared-config
+  namespace: lb-notifications
+data:
+  APP_ENV: development
+  TZ: UTC
+  SERVICE_NAME: sync-provider-users
+  TEMPORAL_HOST_PORT: temporal.temporal.svc.cluster.local:7233
+  TEMPORAL_NAMESPACE: provider-notification
+  TASK_QUEUE: novu-sync-queue
+  PULSAR_URL: pulsar://lb-broker.lb-broker.svc.cluster.local:6650
+  PULSAR_TOPIC_EVENTS: persistent://lb-conn/notification/sync-provider-users-events
+  PULSAR_SUBSCRIPTION_NAME: sync-provider-users-consumer
+  NOVU_ENABLED: "true"
+  TEMPORAL_COMPLETED_RETENTION: "168h"
+  TEMPORAL_FAILED_RETENTION: "720h"
+  RETRY_INITIAL_INTERVAL: "1s"
+  RETRY_MAX_INTERVAL: "5m"
+  RETRY_BACKOFF_COEFFICIENT: "2.0"
+  RETRY_WORKFLOW_MAX_ATTEMPTS: "3"
+  RETRY_ACTIVITY_MAX_ATTEMPTS: "5"
+
