@@ -8,10 +8,10 @@ data:
   APP_ENV: development
   TZ: UTC
   SERVICE_NAME: sync-provider-users
-  TEMPORAL_HOST_PORT: temporal.temporal.svc.cluster.local:7233
+  TEMPORAL_HOST_PORT: temporal-frontend.temporal.svc.cluster.local:7233
   TEMPORAL_NAMESPACE: provider-notification
   TASK_QUEUE: novu-sync-queue
-  PULSAR_URL: pulsar://lb-broker.lb-broker.svc.cluster.local:6650
+  PULSAR_URL: pulsar://pulsar-broker.pulsar.svc.cluster.local:6650
   PULSAR_TOPIC_EVENTS: persistent://lb-conn/notification/sync-provider-users-events
   PULSAR_SUBSCRIPTION_NAME: sync-provider-users-consumer
   NOVU_ENABLED: "true"
