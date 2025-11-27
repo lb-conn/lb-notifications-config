@@ -147,8 +147,8 @@ Managed via AWS Secrets Manager with External Secrets Operator:
 
 Required secrets:
 - `PULSAR_API_KEY` - Pulsar API key for authentication
-- `NOVU_API_KEY` - Novu API key for notification provider
-- `NOVU_API_URL` - Novu API URL (optional, defaults to Novu cloud)
+- `NOVU_API_KEY` - Novu API key for notification provider (obtain from Novu dashboard)
+- `NOVU_API_URL` - Novu API URL (defaults to self-hosted: `http://novu-api.novu.svc.cluster.local:3000`)
 
 ## Configuration
 
@@ -166,9 +166,16 @@ The worker uses the following environment variables (configured via ConfigMap an
 - `PULSAR_SUBSCRIPTION_NAME` - Subscription name
 
 ### Novu Configuration
-- `NOVU_API_KEY` - Novu API key (from secret)
-- `NOVU_API_URL` - Novu API URL (from secret, optional)
+- `NOVU_API_KEY` - Novu API key (from secret, obtain from Novu dashboard)
+- `NOVU_API_URL` - Novu API URL (from secret, defaults to self-hosted: `http://novu-api.novu.svc.cluster.local:3000`)
 - `NOVU_ENABLED` - Enable/disable Novu provider (default: `true`)
+
+**Note:** The Novu self-hosted instance is deployed in the `novu` namespace. To obtain the API key:
+1. Access the Novu dashboard: `kubectl port-forward -n novu svc/novu-web 4200:4200`
+2. Open `http://localhost:4200` in your browser
+3. Create an account (first user becomes admin)
+4. Go to **Settings** → **API Keys** and create/copy an API key
+5. Add it to AWS Secrets Manager at `/lb-notifications/{env}/manual-secrets`
 
 ### Retry Policy
 - `RETRY_INITIAL_INTERVAL` - Initial retry interval (default: `1s`)
