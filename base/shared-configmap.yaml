@@ -13,6 +13,7 @@ data:
   TASK_QUEUE: novu-sync-queue
   PULSAR_URL: pulsar://pulsar-broker.pulsar.svc.cluster.local:6650
   PULSAR_TOPIC_EVENTS: persistent://lb-conn/notification/sync-provider-users-events
+  NOVU_API_URL: "http://novu-api.novu.svc.cluster.local:3000"
   PULSAR_SUBSCRIPTION_NAME: sync-provider-users-consumer
   NOVU_ENABLED: "true"
   TEMPORAL_COMPLETED_RETENTION: "168h"
@@ -22,4 +23,3 @@ data:
   RETRY_BACKOFF_COEFFICIENT: "2.0"
   RETRY_WORKFLOW_MAX_ATTEMPTS: "3"
   RETRY_ACTIVITY_MAX_ATTEMPTS: "5"
-
