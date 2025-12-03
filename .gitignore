@@ -1,0 +1,20 @@
+# Rendered manifests
+rendered/
+*.yaml.rendered
+*.yml.rendered
+
+# Temporary files
+/tmp/
+*.tmp
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+

@@ -8,6 +8,7 @@ resources:
   - ghcr-external-secret.yaml
   - sync-provider-users-deployment.yaml
 
-commonLabels:
-  app.kubernetes.io/part-of: lb-notifications
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: lb-notifications
 
