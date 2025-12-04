@@ -16,7 +16,7 @@ data:
   PULSAR_ADMIN_PORT: "8080"
   PULSAR_TOPIC_EVENTS: persistent://lb-conn/notification/sync-provider-users-events
   PULSAR_SUBSCRIPTION_NAME: sync-provider-users-consumer
-  NOVU_API_URL: http://novu-api.novu.svc.cluster.local
+  NOVU_API_URL: http://novu.londonbridge.dev
   NOVU_ENABLED: "true"
   NOVU_API_PORT: "3000"
   TEMPORAL_COMPLETED_RETENTION: "168h"
