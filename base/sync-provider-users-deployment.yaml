@@ -34,6 +34,7 @@ spec:
           envFrom:
             - secretRef:
                 name: lb-notifications-shared-secret
+                optional: true
             - configMapRef:
                 name: shared-config
           resources:
