@@ -90,7 +90,57 @@ git push origin prd-v1.0.0-$(git rev-parse --short HEAD)
 
 ## Local Testing
 
-Test kustomize builds locally:
+### Prerequisites
+
+Install required tools:
+
+```bash
+# Install kustomize
+brew install kustomize  # macOS
+# or
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+
+# Install kubectl (if not already installed)
+brew install kubectl  # macOS
+
+# Install kubeval for manifest validation (optional but recommended)
+brew install kubeval  # macOS
+# or
+wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
+tar xf kubeval-linux-amd64.tar.gz
+sudo mv kubeval /usr/local/bin
+```
+
+### Quick Test Commands
+
+```bash
+# Build and validate all environments
+make validate-all
+
+# Build specific environment
+make build-dev
+make build-qa
+make build-staging
+make build-prd
+
+# Validate manifests (syntax and Kubernetes schema)
+make validate-dev
+make validate-qa
+make validate-staging
+make validate-prd
+
+# Save rendered manifests to files for inspection
+make render-dev
+make render-qa
+make render-staging
+make render-prd
+```
+
+### Manual Testing
+
+#### 1. Build Kustomize Manifests
+
+Test that kustomize can build the manifests without errors:
 
 ```bash
 # Test DEV environment
@@ -104,6 +154,134 @@ kustomize build environments/staging
 
 # Test PRD environment
 kustomize build environments/prd
+```
+
+#### 2. Validate YAML Syntax
+
+Check for YAML syntax errors:
+
+```bash
+# Validate base
+kustomize build base > /dev/null && echo "✓ Base is valid"
+
+# Validate all environments
+for env in dev qa staging prd; do
+  echo "Validating $env..."
+  kustomize build environments/$env > /dev/null && echo "✓ $env is valid" || echo "✗ $env has errors"
+done
+```
+
+#### 3. Validate Kubernetes Manifests
+
+Validate against Kubernetes API schema:
+
+```bash
+# Install kubeval if not already installed
+# brew install kubeval  # macOS
+
+# Validate DEV
+kustomize build environments/dev | kubeval --strict
+
+# Validate all environments
+for env in dev qa staging prd; do
+  echo "Validating $env with kubeval..."
+  kustomize build environments/$env | kubeval --strict
+done
+```
+
+#### 4. Dry-Run Apply (if connected to cluster)
+
+Test applying manifests without actually deploying:
+
+```bash
+# Dry-run DEV environment
+kustomize build environments/dev | kubectl apply --dry-run=client -f -
+
+# Dry-run with server-side validation (requires cluster access)
+kustomize build environments/dev | kubectl apply --dry-run=server -f -
+```
+
+#### 5. Compare Environments
+
+Compare differences between environments:
+
+```bash
+# Compare DEV vs QA
+diff <(kustomize build environments/dev) <(kustomize build environments/qa)
+
+# Compare QA vs STAGING
+diff <(kustomize build environments/qa) <(kustomize build environments/staging)
+```
+
+#### 6. Inspect Rendered Manifests
+
+Save rendered manifests to files for detailed inspection:
+
+```bash
+# Render DEV to file
+kustomize build environments/dev > /tmp/lb-notifications-dev.yaml
+
+# Render all environments
+for env in dev qa staging prd; do
+  kustomize build environments/$env > /tmp/lb-notifications-$env.yaml
+  echo "Rendered $env to /tmp/lb-notifications-$env.yaml"
+done
+
+# View specific resource
+kustomize build environments/dev | grep -A 20 "kind: Deployment"
+```
+
+#### 7. Test with Local Cluster (Optional)
+
+If you have a local Kubernetes cluster (kind, minikube, etc.):
+
+```bash
+# Create namespace
+kubectl create namespace lb-notifications --dry-run=client -o yaml | kubectl apply -f -
+
+# Apply DEV environment (be careful - this will actually deploy!)
+kustomize build environments/dev | kubectl apply -f -
+
+# Check resources
+kubectl get all -n lb-notifications
+
+# Clean up
+kustomize build environments/dev | kubectl delete -f -
+```
+
+### Common Validation Checks
+
+```bash
+# Check for common issues
+echo "Checking for hardcoded namespaces..."
+grep -r "namespace:" base/ | grep -v "#" || echo "✓ No hardcoded namespaces in base"
+
+echo "Checking for image tags..."
+kustomize build environments/dev | grep "image:" | head -5
+
+echo "Checking ConfigMap values..."
+kustomize build environments/dev | grep -A 30 "kind: ConfigMap"
+
+echo "Checking ExternalSecret paths..."
+kustomize build environments/dev | grep -A 10 "kind: ExternalSecret" | grep "key:"
+```
+
+### CI/CD Validation
+
+Before committing, run:
+
+```bash
+# Full validation suite
+make validate-all
+
+# Or manually:
+for env in dev qa staging prd; do
+  echo "=== Validating $env ==="
+  kustomize build environments/$env > /dev/null || exit 1
+  kustomize build environments/$env | kubeval --strict || exit 1
+  echo "✓ $env passed validation"
+done
+echo "✓ All environments validated successfully"
 ```
 
 ## ArgoCD Setup
@@ -167,7 +345,8 @@ The worker uses the following environment variables (configured via ConfigMap an
 
 ### Novu Configuration
 - `NOVU_API_KEY` - Novu API key (from secret, obtain from Novu dashboard)
-- `NOVU_API_URL` - Novu API URL (from secret, defaults to self-hosted: `http://novu-api.novu.svc.cluster.local:3000`)
+- `NOVU_API_URL` - Novu API URL (from secret, defaults to self-hosted: `http://novu-api.novu.svc.cluster.local`)
+- `NOVU_API_PORT`- Novu API PORT (default: `3000`)
 - `NOVU_ENABLED` - Enable/disable Novu provider (default: `true`)
 
 **Note:** The Novu self-hosted instance is deployed in the `novu` namespace. To obtain the API key:
