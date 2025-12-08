@@ -29,8 +29,8 @@ spec:
         - name: sync-provider-users
           image: ghcr.io/lb-conn/lb-notifications/sync-provider-users:latest
           imagePullPolicy: Always
-          args:
-            - worker
+          command: ["./main"]
+          args: ["worker"]
           envFrom:
             - secretRef:
                 name: lb-notifications-shared-secret
