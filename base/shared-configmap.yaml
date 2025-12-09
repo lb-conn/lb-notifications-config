@@ -9,7 +9,7 @@ data:
   SERVICE_NAME: sync-provider-users
   TEMPORAL_HOST_PORT: temporal-frontend.temporal.svc.cluster.local:7233
   TEMPORAL_NAMESPACE: provider-notification
-  TASK_QUEUE: novu-sync-queue
+  TASK_QUEUE: sync-provider-user
   PULSAR_URL: pulsar://pulsar-broker.pulsar.svc.cluster.local:6650
   PULSAR_URL_ADMIN: http://pulsar-broker.pulsar.svc.cluster.local:8080
   PULSAR_TOPIC_EVENTS: persistent://lb-conn/notification/sync-provider-users-events
