@@ -14,8 +14,9 @@ data:
   PULSAR_URL_ADMIN: http://pulsar-broker.pulsar.svc.cluster.local:8080
   PULSAR_TOPIC_EVENTS: persistent://lb-conn/notification/sync-provider-users-events
   PULSAR_SUBSCRIPTION_NAME: sync-provider-users-consumer
-  NOVU_API_URL: http://novu.londonbridge.dev
+  NOVU_API_URL: http://novu.londonbridge.dev 
   NOVU_ENABLED: "true"
+  NOVU_API_KEY: efe03eda9999b00bad63d766929e44fc #Novu dev API key
   TEMPORAL_COMPLETED_RETENTION: "168h"
   TEMPORAL_FAILED_RETENTION: "720h"
   RETRY_INITIAL_INTERVAL: "1s"
