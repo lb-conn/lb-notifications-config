@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - shared-configmap.yaml
   - shared-external-secret.yaml
-  - ghcr-external-secret.yaml
   - sync-provider-users-deployment.yaml
 
 labels:

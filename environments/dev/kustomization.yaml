@@ -34,9 +34,6 @@ patches:
         path: /spec/template/spec/nodeSelector
         value:
           role: dev
-      - op: replace
-        path: /spec/template/spec/imagePullSecrets/0/name
-        value: ghcr-secret
       - op: add
         path: /spec/template/metadata/labels/dev.londonbridge.service
         value: sync-provider-users

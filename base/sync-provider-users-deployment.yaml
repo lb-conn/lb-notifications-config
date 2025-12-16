@@ -24,7 +24,7 @@ spec:
         app.kubernetes.io/component: worker
     spec:
       imagePullSecrets:
-        - name: ghcr-secret
+        - name: github-container-registry
       containers:
         - name: sync-provider-users
           image: ghcr.io/lb-conn/lb-notifications/sync-provider-users:latest
