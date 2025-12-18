@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   - shared-configmap.yaml
-  - shared-external-secret.yaml
   - shared-secret.yaml
   - sync-provider-users-deployment.yaml
 
