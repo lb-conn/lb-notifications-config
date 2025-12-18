@@ -13,7 +13,7 @@ replicas:
 
 images:
   - name: ghcr.io/lb-conn/lb-notifications/sync-provider-users
-    newTag: "4910781e"
+    newTag: "47f533b8"
 
 patches:
   # ConfigMap patch for environment-specific values
@@ -34,9 +34,6 @@ patches:
         path: /spec/template/spec/nodeSelector
         value:
           role: dev
-      - op: replace
-        path: /spec/template/spec/imagePullSecrets/0/name
-        value: regcred
       - op: add
         path: /spec/template/metadata/labels/dev.londonbridge.service
         value: sync-provider-users
