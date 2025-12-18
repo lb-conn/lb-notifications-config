@@ -42,7 +42,7 @@ spec:
               command:
                 - sh
                 - -c
-                - "pgrep -f 'sync-provider-users worker' > /dev/null || exit 1"
+                - "test -f /proc/1/cmdline && grep -q sync-provider-users /proc/1/cmdline"
             initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
@@ -53,7 +53,7 @@ spec:
               command:
                 - sh
                 - -c
-                - "pgrep -f 'sync-provider-users worker' > /dev/null || exit 1"
+                - "test -f /proc/1/cmdline && grep -q sync-provider-users /proc/1/cmdline"
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 5
