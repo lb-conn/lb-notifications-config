@@ -38,12 +38,3 @@ patches:
         path: /spec/template/metadata/labels/dev.londonbridge.service
         value: sync-provider-users
 
-  # External Secret patch
-  - target:
-      kind: ExternalSecret
-      name: lb-notifications-shared-secret
-    patch: |-
-      - op: replace
-        path: /spec/dataFrom/0/extract/key
-        value: /lb-notifications/dev/manual-secrets
-
