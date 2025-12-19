@@ -21,9 +21,30 @@ patches:
       kind: ConfigMap
       name: shared-config
     patch: |-
-      - op: replace
+      - op: add
         path: /data/APP_ENV
         value: qa
+      - op: add
+        path: /data/TEMPORAL_HOST_PORT
+        value: temporal.qa-infra.svc:7233
+      - op: add
+        path: /data/PULSAR_URL
+        value: pulsar://pulsar.qa-infra.svc:6650
+      - op: add
+        path: /data/PULSAR_URL_ADMIN
+        value: http://pulsar.qa-infra.svc:8080
+      - op: add
+        path: /data/NOVU_API_URL
+        value: http://novu.londonbridge.qa
+
+  # Secret patch for environment-specific values
+  - target:
+      kind: Secret
+      name: lb-notifications-shared-secret
+    patch: |-
+      - op: replace
+        path: /stringData/NOVU_API_KEY
+        value: 823c2695db4c59d7e1feef2790e797cd
 
   # Deployment patches
   - target:
