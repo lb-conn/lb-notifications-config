@@ -26,16 +26,19 @@ patches:
         value: qa
       - op: add
         path: /data/TEMPORAL_HOST_PORT
-        value: temporal-frontend.temporal.svc.cluster.local:7233
+        value: temporal.qa-infra.svc:7233
       - op: add
         path: /data/PULSAR_URL
-        value: pulsar://pulsar-broker.pulsar.svc.cluster.local:6650
+        value: pulsar://pulsar.qa-infra.svc:6650
       - op: add
         path: /data/PULSAR_URL_ADMIN
-        value: http://pulsar-broker.pulsar.svc.cluster.local:8080
+        value: http://pulsar.qa-infra.svc:8080
       - op: add
         path: /data/NOVU_API_URL
-        value: http://novu-api.novu-qa.svc.cluster.local:3000
+        value: http://novu.londonbridge.qa
+      - op: add
+        path: /data/NOVU_API_KEY
+        value: 823c2695db4c59d7e1feef2790e797cd
 
   # Deployment patches
   - target:

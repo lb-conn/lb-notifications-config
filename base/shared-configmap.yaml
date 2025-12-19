@@ -19,12 +19,6 @@ data:
   RETRY_BACKOFF_COEFFICIENT: "2.0"
   RETRY_WORKFLOW_MAX_ATTEMPTS: "3"
   RETRY_ACTIVITY_MAX_ATTEMPTS: "5"
-  # Environment-specific values are patched per environment:
-  # - APP_ENV
-  # - TEMPORAL_HOST_PORT
-  # - PULSAR_URL
-  # - PULSAR_URL_ADMIN
-  # - NOVU_API_URL
-  # NOVU_API_KEY is managed via Secret (ExternalSecret)
 
-  
+
+
