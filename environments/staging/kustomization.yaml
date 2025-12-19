@@ -21,9 +21,21 @@ patches:
       kind: ConfigMap
       name: shared-config
     patch: |-
-      - op: replace
+      - op: add
         path: /data/APP_ENV
         value: staging
+      - op: add
+        path: /data/TEMPORAL_HOST_PORT
+        value: temporal-frontend.temporal.svc.cluster.local:7233
+      - op: add
+        path: /data/PULSAR_URL
+        value: pulsar://pulsar-broker.pulsar.svc.cluster.local:6650
+      - op: add
+        path: /data/PULSAR_URL_ADMIN
+        value: http://pulsar-broker.pulsar.svc.cluster.local:8080
+      - op: add
+        path: /data/NOVU_API_URL
+        value: http://novu-api.novu-staging.svc.cluster.local:3000
 
   # Deployment patches
   - target:
