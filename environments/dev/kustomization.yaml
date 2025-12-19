@@ -36,8 +36,14 @@ patches:
       - op: add
         path: /data/NOVU_API_URL
         value: http://novu.londonbridge.dev
-      - op: add
-        path: /data/NOVU_API_KEY
+
+  # Secret patch for environment-specific values
+  - target:
+      kind: Secret
+      name: lb-notifications-shared-secret
+    patch: |-
+      - op: replace
+        path: /stringData/NOVU_API_KEY
         value: 823c2695db4c59d7e1feef2790e797cd
 
   # Deployment patches
