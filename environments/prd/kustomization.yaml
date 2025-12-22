@@ -30,10 +30,6 @@ patches:
       kind: Deployment
       name: sync-provider-users
     patch: |-
-      - op: add
-        path: /spec/template/spec/nodeSelector
-        value:
-          role: prd
       - op: replace
         path: /spec/template/spec/imagePullSecrets/0/name
         value: regcred
