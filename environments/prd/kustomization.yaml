@@ -24,6 +24,14 @@ patches:
       - op: replace
         path: /data/APP_ENV
         value: production
+      - op: replace
+        path: /data/PULSAR_URL
+        value: pulsar+ssl://pc-e5e06aff.aws-sae1-prd-ij2t2.aws.snio.cloud:6651
+      - op: replace
+        path: /data/TEMPORAL_HOST_PORT
+        value: temporal.prd-infra-temporal.svc.cluster.local:7233
+      - op: remove
+        path: /data/PULSAR_URL_ADMIN
 
   # Deployment patches
   - target:
