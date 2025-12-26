@@ -30,8 +30,9 @@ patches:
       - op: replace
         path: /data/TEMPORAL_HOST_PORT
         value: temporal.prd-infra-temporal.svc.cluster.local:7233
-      - op: remove
+      - op: replace
         path: /data/PULSAR_URL_ADMIN
+        value: https://pc-e5e06aff.aws-sae1-prd-ij2t2.aws.snio.cloud:443
 
   # Deployment patches
   - target:
