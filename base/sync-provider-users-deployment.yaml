@@ -27,7 +27,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: sync-provider-users
-          image: ghcr.io/lb-conn/lb-notifications/sync-provider-users:latest
+          image: ghcr.io/london-bridge/lb-notifications/sync-provider-users:latest
           imagePullPolicy: Always
           command: ["./main"]
           args: ["worker"]
