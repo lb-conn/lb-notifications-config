@@ -12,7 +12,7 @@ replicas:
     count: 2
 
 images:
-  - name: ghcr.io/london-bridge/lb-notifications/sync-provider-users
+  - name: ghcr.io/lb-conn/lb-notifications/sync-provider-users
     newTag: "latest"
 
 patches:
