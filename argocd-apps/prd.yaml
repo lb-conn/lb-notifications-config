@@ -15,7 +15,7 @@ spec:
     targetRevision: main
     path: environments/prd
   destination:
-    server: https://kubernetes.default.svc
+    server: https://8FD0228363C30A78286C184D69B58244.yl4.sa-east-1.eks.amazonaws.com
     namespace: lb-notifications
   syncPolicy:
     syncOptions:
