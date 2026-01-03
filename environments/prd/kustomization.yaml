@@ -9,7 +9,7 @@ namespace: lb-notifications
 
 replicas:
   - name: sync-provider-users
-    count: 2
+    count: 1
 
 images:
   - name: ghcr.io/lb-conn/lb-notifications/sync-provider-users
