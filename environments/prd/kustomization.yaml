@@ -9,11 +9,11 @@ namespace: lb-notifications
 
 replicas:
   - name: sync-provider-users
-    count: 2
+    count: 1
 
 images:
   - name: ghcr.io/lb-conn/lb-notifications/sync-provider-users
-    newTag: "latest"
+    newTag: "bd4ab9e1"
 
 patches:
   # ConfigMap patch for environment-specific values
@@ -42,10 +42,6 @@ patches:
       kind: Deployment
       name: sync-provider-users
     patch: |-
-      - op: add
-        path: /spec/template/spec/nodeSelector
-        value:
-          role: prd
       - op: replace
         path: /spec/template/spec/imagePullSecrets/0/name
         value: regcred
