@@ -19,6 +19,12 @@ data:
   RETRY_BACKOFF_COEFFICIENT: "2.0"
   RETRY_WORKFLOW_MAX_ATTEMPTS: "3"
   RETRY_ACTIVITY_MAX_ATTEMPTS: "5"
+  # Environment-specific values (will be overridden by environment patches)
+  APP_ENV: ""
+  TEMPORAL_HOST_PORT: ""
+  PULSAR_URL: ""
+  PULSAR_URL_ADMIN: ""
+  NOVU_API_URL: ""
 
 
 

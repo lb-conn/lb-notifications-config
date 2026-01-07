@@ -21,19 +21,19 @@ patches:
       kind: ConfigMap
       name: shared-config
     patch: |-
-      - op: add
+      - op: replace
         path: /data/APP_ENV
         value: staging
-      - op: add
+      - op: replace
         path: /data/TEMPORAL_HOST_PORT
         value: temporal-frontend.temporal.svc.cluster.local:7233
-      - op: add
+      - op: replace
         path: /data/PULSAR_URL
         value: pulsar://pulsar-broker.pulsar.svc.cluster.local:6650
-      - op: add
+      - op: replace
         path: /data/PULSAR_URL_ADMIN
         value: http://pulsar-broker.pulsar.svc.cluster.local:8080
-      - op: add
+      - op: replace
         path: /data/NOVU_API_URL
         value: http://novu-api.novu-staging.svc.cluster.local:3000
 
@@ -53,6 +53,15 @@ patches:
         path: /spec/template/metadata/labels/staging.londonbridge.service
         value: sync-provider-users
 
+  # Secret label patch for ArgoCD instance
+  - target:
+      kind: Secret
+      name: lb-notifications-shared-secret
+    patch: |-
+      - op: replace
+        path: /metadata/labels/argocd.argoproj.io~1instance
+        value: lb-notifications-staging
+
   # External Secret patch
   - target:
       kind: ExternalSecret
@@ -61,4 +70,7 @@ patches:
       - op: replace
         path: /spec/dataFrom/0/extract/key
         value: /lb-notifications/staging/manual-secrets
+      - op: replace
+        path: /metadata/labels/argocd.argoproj.io~1instance
+        value: lb-notifications-staging
 
