@@ -24,6 +24,39 @@ patches:
       - op: replace
         path: /data/APP_ENV
         value: development
+      - op: replace
+        path: /data/TEMPORAL_HOST_PORT
+        value: temporal-frontend.temporal.svc.cluster.local:7233
+      - op: replace
+        path: /data/PULSAR_URL
+        value: pulsar://pulsar-broker.pulsar.svc.cluster.local:6650
+      - op: replace
+        path: /data/PULSAR_URL_ADMIN
+        value: http://pulsar-broker.pulsar.svc.cluster.local:8080
+      - op: replace
+        path: /data/NOVU_API_URL
+        value: http://novu.londonbridge.dev
+
+  # Secret label patch for ArgoCD instance
+  - target:
+      kind: Secret
+      name: lb-notifications-shared-secret
+    patch: |-
+      - op: replace
+        path: /metadata/labels/argocd.argoproj.io~1instance
+        value: lb-notifications-dev
+
+  # External Secret patch
+  - target:
+      kind: ExternalSecret
+      name: lb-notifications-shared-secret
+    patch: |-
+      - op: replace
+        path: /spec/dataFrom/0/extract/key
+        value: /lb-notifications/dev/manual-secrets
+      - op: replace
+        path: /metadata/labels/argocd.argoproj.io~1instance
+        value: lb-notifications-dev
 
   # Deployment patches
   - target:
