@@ -44,7 +44,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/imagePullSecrets/0/name
-        value: regcred
+        value: ghcr-pull-secret
       - op: add
         path: /spec/template/metadata/labels/qa.londonbridge.service
         value: sync-provider-users
