@@ -35,7 +35,7 @@ patches:
         value: http://pulsar-broker.pulsar.svc.cluster.local:8080
       - op: replace
         path: /data/NOVU_API_URL
-        value: http://novu-api.novu-dev.svc.cluster.local:3000
+        value: http://novu.londonbridge.dev
 
   # Secret label patch for ArgoCD instance
   - target:
