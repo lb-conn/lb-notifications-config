@@ -52,7 +52,13 @@ patches:
       name: lb-notifications-shared-secret
     patch: |-
       - op: replace
-        path: /spec/dataFrom/0/extract/key
+        path: /spec/data/0/remoteRef/key
+        value: /lb-notifications/dev/manual-secrets
+      - op: replace
+        path: /spec/data/1/remoteRef/key
+        value: /lb-notifications/dev/manual-secrets
+      - op: replace
+        path: /spec/data/2/remoteRef/key
         value: /lb-notifications/dev/manual-secrets
       - op: replace
         path: /metadata/labels/argocd.argoproj.io~1instance
