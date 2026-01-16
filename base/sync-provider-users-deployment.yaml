@@ -39,14 +39,14 @@ spec:
                 name: shared-config
           livenessProbe:
             tcpSocket:
-              port: 27017
+              port: 3005
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: 27017
+              port: 3005
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
