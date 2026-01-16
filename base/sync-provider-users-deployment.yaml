@@ -40,9 +40,9 @@ spec:
           readinessProbe:
             exec:
               command:
-                - sh
-                - -c
-                - "test -d /proc/1"
+                - test
+                - -d
+                - /proc/1
             initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
@@ -51,9 +51,9 @@ spec:
           livenessProbe:
             exec:
               command:
-                - sh
-                - -c
-                - "test -d /proc/1"
+                - test
+                - -d
+                - /proc/1
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 5
