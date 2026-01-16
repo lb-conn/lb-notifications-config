@@ -37,28 +37,20 @@ spec:
                 optional: true
             - configMapRef:
                 name: shared-config
-          readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "test -d /proc/1"
-            initialDelaySeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
-            successThreshold: 1
-          livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "test -d /proc/1"
-            initialDelaySeconds: 30
-            periodSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 5
+            periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
-            successThreshold: 1
           resources:
             requests:
               cpu: 50m
