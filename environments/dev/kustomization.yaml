@@ -13,7 +13,7 @@ replicas:
 
 images:
   - name: ghcr.io/lb-conn/lb-notifications/sync-provider-users
-    newTag: "72092eb9"
+    newTag: "94e3398f"
 
 patches:
   # ConfigMap patch for environment-specific values
